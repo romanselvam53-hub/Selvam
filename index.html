@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Responsive Landing Page</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <nav id="navbar" role="navigation" aria-label="Main Navigation">
+    <div class="logo">
+      <svg class="logo-img" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="20" cy="20" r="18" fill="#FFD700"/>
+        <text x="50%" y="58%" text-anchor="middle" fill="#222" font-size="20" font-family="Segoe UI, Arial, sans-serif" dy=".3em" font-weight="bold">M</text>
+      </svg>
+      My Page
+    </div>
+    <div class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-controls="nav-links" aria-expanded="false">&#9776;</div>
+    <ul id="nav-links">
+      <li><a href="#home" class="nav-link" aria-current="page">Home</a></li>
+      <li><a href="#about" class="nav-link">About</a></li>
+      <li><a href="#services" class="nav-link">Services</a></li>
+      <li><a href="#contact" class="nav-link">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <h1>Welcome to My Page</h1>
+      <p class="hero-subtitle">We help you grow your business with modern solutions.</p>
+      <a href="get-started.html" class="cta-btn">Get Started</a>
+    </div>
+    <div class="hero-img"></div>
+  </section>
+
+  <div class="container">
+    <section id="about" class="card">
+      <h2>About</h2>
+      <p>We are a team of passionate professionals dedicated to delivering high-quality web solutions for your business needs.</p>
+      <img src="mypic.jpg" alt="About us" class="about-img" />
+    </section>
+    <section id="services" class="card">
+      <h2>Services</h2>
+      <ul class="services-list">
+        <li>Custom Web Development</li>
+        <li>Responsive Design</li>
+        <li>SEO Optimization</li>
+        <li>Brand Consulting</li>
+      </ul>
+    </section>
+    <section id="contact" class="card">
+      <h2>Contact</h2>
+      <p>Have questions? Reach out to us at <a href="mailto:info@example.com" class="contact-link">selvam@gmail.com</a> or call <a href="tel:+1234567890" class="contact-link">+1 234 567 890</a>.</p>
+    </section>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 My Page. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
