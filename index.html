@@ -1,66 +1,365 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Responsive Landing Page</title>
-  <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STOPWATCH</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Mono:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f5f7fa;
+            color: #202124;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+        }
+
+        /* Color Variables */
+        :root {
+            --primary-color: #4285f4;
+            --secondary-color: #34a853;
+            --danger-color: #ea4335;
+            --accent-color: #fbbc05;
+            --dark-color: #202124;
+            --light-color: #f8f9fa;
+            --gray-color: #5f6368;
+            --border-color: #dadce0;
+        }
+
+        /* Main Container */
+        .stopwatch-container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .app-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .app-header h1 {
+            font-size: 2rem;
+            font-weight: 500;
+            color: var(--dark-color);
+        }
+
+        /* Display Section */
+        .display-container {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .time-display {
+            font-size: 3rem;
+            font-family: 'Roboto Mono', monospace;
+            font-weight: 300;
+            color: var(--dark-color);
+            letter-spacing: 2px;
+        }
+
+        /* Buttons */
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .btn-danger {
+            background-color: var(--danger-color);
+            color: white;
+        }
+
+        .btn-accent {
+            background-color: var(--accent-color);
+            color: var(--dark-color);
+        }
+
+        /* Laps Section */
+        .laps-container {
+            background: var(--light-color);
+            border-radius: 8px;
+            padding: 1rem;
+        }
+
+        .laps-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .laps-scroll {
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .laps-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        .laps-table th, 
+        .laps-table td {
+            padding: 0.5rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .laps-table th {
+            background-color: var(--light-color);
+            position: sticky;
+            top: 0;
+            font-weight: 500;
+        }
+
+        /* Footer */
+        .app-footer {
+            text-align: center;
+            margin-top: 1.5rem;
+            font-size: 0.8rem;
+            color: var(--gray-color);
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 600px) {
+            .time-display {
+                font-size: 2.5rem;
+            }
+            
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
 </head>
 <body>
-
-  <nav id="navbar" role="navigation" aria-label="Main Navigation">
-    <div class="logo">
-      <svg class="logo-img" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <circle cx="20" cy="20" r="18" fill="#FFD700"/>
-        <text x="50%" y="58%" text-anchor="middle" fill="#222" font-size="20" font-family="Segoe UI, Arial, sans-serif" dy=".3em" font-weight="bold">M</text>
-      </svg>
-      My Page
+    <div class="stopwatch-container">
+        <header class="app-header">
+            <h1>STOPWATCH</h1>
+        </header>
+        
+        <div class="display-container">
+            <div class="time-display" id="display">00:00:00.00</div>
+        </div>
+        
+        <div class="controls">
+            <button id="startBtn" class="btn btn-primary">
+                <span class="icon">▶</span> Start
+            </button>
+            <button id="pauseBtn" class="btn btn-secondary">
+                <span class="icon">⏸</span> Pause
+            </button>
+            <button id="resetBtn" class="btn btn-danger">
+                <span class="icon">↻</span> Reset
+            </button>
+            <button id="lapBtn" class="btn btn-accent">
+                <span class="icon">⏱</span> Lap
+            </button>
+        </div>
+        
+        <div class="laps-container">
+            <div class="laps-header">
+                <span>Lap Times</span>
+                <span class="lap-count" id="lapCount">0</span>
+            </div>
+            <div class="laps-scroll">
+                <table class="laps-table">
+                    <thead>
+                        <tr>
+                            <th>Lap</th>
+                            <th>Time</th>
+                            <th>Split</th>
+                        </tr>
+                    </thead>
+                    <tbody id="lapTimes">
+                        <!-- Lap times will be inserted here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <footer class="app-footer">
+            <p>© 2023 Professional Stopwatch</p>
+        </footer>
     </div>
-    <div class="hamburger" id="hamburger" aria-label="Open navigation menu" aria-controls="nav-links" aria-expanded="false">&#9776;</div>
-    <ul id="nav-links">
-      <li><a href="#home" class="nav-link" aria-current="page">Home</a></li>
-      <li><a href="#about" class="nav-link">About</a></li>
-      <li><a href="#services" class="nav-link">Services</a></li>
-      <li><a href="#contact" class="nav-link">Contact</a></li>
-    </ul>
-  </nav>
 
-  <section class="hero" id="home">
-    <div class="hero-content">
-      <h1>Welcome to My Page</h1>
-      <p class="hero-subtitle">We help you grow your business with modern solutions.</p>
-      <a href="get-started.html" class="cta-btn">Get Started</a>
-    </div>
-    <div class="hero-img"></div>
-  </section>
+    <script>
+        class Stopwatch {
+            constructor() {
+                this.isRunning = false;
+                this.startTime = 0;
+                this.elapsedTime = 0;
+                this.lapTimes = [];
+                this.timerInterval = null;
+                
+                this.display = document.getElementById('display');
+                this.lapTimesElement = document.getElementById('lapTimes');
+                this.lapCountElement = document.getElementById('lapCount');
+                
+                this.initializeButtons();
+            }
+            
+            initializeButtons() {
+                document.getElementById('startBtn').addEventListener('click', () => this.start());
+                document.getElementById('pauseBtn').addEventListener('click', () => this.pause());
+                document.getElementById('resetBtn').addEventListener('click', () => this.reset());
+                document.getElementById('lapBtn').addEventListener('click', () => this.recordLap());
+            }
+            
+            start() {
+                if (!this.isRunning) {
+                    this.startTime = Date.now() - this.elapsedTime;
+                    this.timerInterval = setInterval(() => this.updateTime(), 10);
+                    this.isRunning = true;
+                }
+            }
+            
+            pause() {
+                if (this.isRunning) {
+                    clearInterval(this.timerInterval);
+                    this.isRunning = false;
+                }
+            }
+            
+            reset() {
+                this.pause();
+                this.elapsedTime = 0;
+                this.lapTimes = [];
+                this.updateDisplay();
+                this.updateLapDisplay();
+            }
+            
+            recordLap() {
+                if (this.isRunning) {
+                    const currentLapTime = this.elapsedTime;
+                    const previousLapTime = this.lapTimes.length > 0 
+                        ? this.lapTimes[this.lapTimes.length - 1].totalTime 
+                        : 0;
+                    
+                    this.lapTimes.push({
+                        lapNumber: this.lapTimes.length + 1,
+                        totalTime: currentLapTime,
+                        splitTime: currentLapTime - previousLapTime
+                    });
+                    
+                    this.updateLapDisplay();
+                }
+            }
+            
+            updateTime() {
+                this.elapsedTime = Date.now() - this.startTime;
+                this.updateDisplay();
+            }
+            
+            formatTime(ms) {
+                const date = new Date(ms);
+                const hours = date.getUTCHours().toString().padStart(2, '0');
+                const minutes = date.getUTCMinutes().toString().padStart(2, '0');
+                const seconds = date.getUTCSeconds().toString().padStart(2, '0');
+                const milliseconds = Math.floor(date.getUTCMilliseconds() / 10).toString().padStart(2, '0');
+                
+                return `${hours}:${minutes}:${seconds}.${milliseconds}`;
+            }
+            
+            formatShortTime(ms) {
+                const date = new Date(ms);
+                const minutes = date.getUTCMinutes().toString().padStart(2, '0');
+                const seconds = date.getUTCSeconds().toString().padStart(2, '0');
+                const milliseconds = Math.floor(date.getUTCMilliseconds() / 10).toString().padStart(2, '0');
+                
+                return `${minutes}:${seconds}.${milliseconds}`;
+            }
+            
+            updateDisplay() {
+                this.display.textContent = this.formatTime(this.elapsedTime);
+            }
+            
+            updateLapDisplay() {
+                this.lapCountElement.textContent = this.lapTimes.length;
+                
+                // Clear existing laps
+                this.lapTimesElement.innerHTML = '';
+                
+                // Add new laps (in reverse order - newest first)
+                this.lapTimes.slice().reverse().forEach(lap => {
+                    const row = document.createElement('tr');
+                    
+                    const lapCell = document.createElement('td');
+                    lapCell.textContent = lap.lapNumber;
+                    
+                    const totalCell = document.createElement('td');
+                    totalCell.textContent = this.formatShortTime(lap.totalTime);
+                    
+                    const splitCell = document.createElement('td');
+                    splitCell.textContent = this.formatShortTime(lap.splitTime);
+                    
+                    row.appendChild(lapCell);
+                    row.appendChild(totalCell);
+                    row.appendChild(splitCell);
+                    
+                    this.lapTimesElement.appendChild(row);
+                });
+            }
+        }
 
-  <div class="container">
-    <section id="about" class="card">
-      <h2>About</h2>
-      <p>We are a team of passionate professionals dedicated to delivering high-quality web solutions for your business needs.</p>
-      <img src="mypic.jpg" alt="About us" class="about-img" />
-    </section>
-    <section id="services" class="card">
-      <h2>Services</h2>
-      <ul class="services-list">
-        <li>Custom Web Development</li>
-        <li>Responsive Design</li>
-        <li>SEO Optimization</li>
-        <li>Brand Consulting</li>
-      </ul>
-    </section>
-    <section id="contact" class="card">
-      <h2>Contact</h2>
-      <p>Have questions? Reach out to us at <a href="mailto:info@example.com" class="contact-link">selvam@gmail.com</a> or call <a href="tel:+1234567890" class="contact-link">+1 234 567 890</a>.</p>
-    </section>
-  </div>
-
-  <footer>
-    <p>&copy; 2025 My Page. All rights reserved.</p>
-  </footer>
-
-  <script src="script.js"></script>
+        // Initialize the stopwatch when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            new Stopwatch();
+        });
+    </script>
 </body>
 </html>
-
