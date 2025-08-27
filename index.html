@@ -3,362 +3,266 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STOPWATCH</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Mono:wght@300;400&display=swap" rel="stylesheet">
+    <title>Tic-Tac-Toe</title>
     <style>
-        /* Reset and Base Styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Roboto', sans-serif;
-            background-color: #f5f7fa;
-            color: #202124;
-            line-height: 1.6;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 1rem;
-        }
-
-        /* Color Variables */
         :root {
-            --primary-color: #4285f4;
-            --secondary-color: #34a853;
-            --danger-color: #ea4335;
-            --accent-color: #fbbc05;
-            --dark-color: #202124;
-            --light-color: #f8f9fa;
-            --gray-color: #5f6368;
-            --border-color: #dadce0;
+            --x-color: #ff4757;
+            --o-color: #2ed573;
+            --bg-gradient: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            --cell-bg: rgba(255, 255, 255, 0.8);
+            --shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
-
-        /* Main Container */
-        .stopwatch-container {
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 2rem;
-            width: 100%;
-            max-width: 500px;
-        }
-
-        .app-header {
-            text-align: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .app-header h1 {
-            font-size: 2rem;
-            font-weight: 500;
-            color: var(--dark-color);
-        }
-
-        /* Display Section */
-        .display-container {
-            text-align: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .time-display {
-            font-size: 3rem;
-            font-family: 'Roboto Mono', monospace;
-            font-weight: 300;
-            color: var(--dark-color);
-            letter-spacing: 2px;
-        }
-
-        /* Buttons */
-        .controls {
+        
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
             display: flex;
             justify-content: center;
-            gap: 0.75rem;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 0.75rem 1.5rem;
-            border: none;
-            border-radius: 6px;
-            font-size: 1rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            display: flex;
             align-items: center;
-            gap: 0.5rem;
+            min-height: 100vh;
+            margin: 0;
+            background: var(--bg-gradient);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
         }
 
-        .btn:hover {
-            opacity: 0.9;
-            transform: translateY(-1px);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
-        .btn-primary {
-            background-color: var(--primary-color);
-            color: white;
-        }
-
-        .btn-secondary {
-            background-color: var(--secondary-color);
-            color: white;
-        }
-
-        .btn-danger {
-            background-color: var(--danger-color);
-            color: white;
-        }
-
-        .btn-accent {
-            background-color: var(--accent-color);
-            color: var(--dark-color);
-        }
-
-        /* Laps Section */
-        .laps-container {
-            background: var(--light-color);
-            border-radius: 8px;
-            padding: 1rem;
-        }
-
-        .laps-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 1rem;
-            font-weight: 500;
-        }
-
-        .laps-scroll {
-            max-height: 200px;
-            overflow-y: auto;
-        }
-
-        .laps-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.9rem;
-        }
-
-        .laps-table th, 
-        .laps-table td {
-            padding: 0.5rem;
-            text-align: left;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .laps-table th {
-            background-color: var(--light-color);
-            position: sticky;
-            top: 0;
-            font-weight: 500;
-        }
-
-        /* Footer */
-        .app-footer {
+        .container {
             text-align: center;
-            margin-top: 1.5rem;
-            font-size: 0.8rem;
-            color: var(--gray-color);
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(10px);
+            animation: fadeIn 1s ease;
         }
 
-        /* Responsive Adjustments */
-        @media (max-width: 600px) {
-            .time-display {
-                font-size: 2.5rem;
-            }
-            
-            .controls {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            
-            .btn {
-                width: 100%;
-                justify-content: center;
-            }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            color: #6c5ce7;
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        #status {
+            margin: 20px 0;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #6c5ce7;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        #board {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-template-rows: repeat(3, 100px);
+            gap: 10px;
+            margin: 20px auto;
+        }
+
+        .cell {
+            width: 100px;
+            height: 100px;
+            background: var(--cell-bg);
+            border-radius: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 4rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+        }
+
+        .cell:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .cell.x {
+            color: var(--x-color);
+            text-shadow: 0 0 10px rgba(255, 71, 87, 0.5);
+        }
+
+        .cell.o {
+            color: var(--o-color);
+            text-shadow: 0 0 10px rgba(46, 213, 115, 0.5);
+        }
+
+        #reset {
+            padding: 12px 30px;
+            font-size: 1.2rem;
+            background: linear-gradient(45deg, #6c5ce7, #a29bfe);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.4);
+        }
+
+        #reset:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(108, 92, 231, 0.6);
+            background: linear-gradient(45deg, #a29bfe, #6c5ce7);
+        }
+
+        .winning-cell {
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #f00;
+            border-radius: 50%;
+            animation: confettiFall 5s linear forwards;
+        }
+
+        @keyframes confettiFall {
+            to { transform: translateY(100vh); }
         }
     </style>
 </head>
 <body>
-    <div class="stopwatch-container">
-        <header class="app-header">
-            <h1>STOPWATCH</h1>
-        </header>
-        
-        <div class="display-container">
-            <div class="time-display" id="display">00:00:00.00</div>
+    <div class="container">
+        <h1>Tic-Tac-Toe</h1>
+        <div id="status">Player X's turn</div>
+        <div id="board">
+            <div class="cell" data-index="0"></div>
+            <div class="cell" data-index="1"></div>
+            <div class="cell" data-index="2"></div>
+            <div class="cell" data-index="3"></div>
+            <div class="cell" data-index="4"></div>
+            <div class="cell" data-index="5"></div>
+            <div class="cell" data-index="6"></div>
+            <div class="cell" data-index="7"></div>
+            <div class="cell" data-index="8"></div>
         </div>
-        
-        <div class="controls">
-            <button id="startBtn" class="btn btn-primary">
-                <span class="icon">▶</span> Start
-            </button>
-            <button id="pauseBtn" class="btn btn-secondary">
-                <span class="icon">⏸</span> Pause
-            </button>
-            <button id="resetBtn" class="btn btn-danger">
-                <span class="icon">↻</span> Reset
-            </button>
-            <button id="lapBtn" class="btn btn-accent">
-                <span class="icon">⏱</span> Lap
-            </button>
-        </div>
-        
-        <div class="laps-container">
-            <div class="laps-header">
-                <span>Lap Times</span>
-                <span class="lap-count" id="lapCount">0</span>
-            </div>
-            <div class="laps-scroll">
-                <table class="laps-table">
-                    <thead>
-                        <tr>
-                            <th>Lap</th>
-                            <th>Time</th>
-                            <th>Split</th>
-                        </tr>
-                    </thead>
-                    <tbody id="lapTimes">
-                        <!-- Lap times will be inserted here -->
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        
-        <footer class="app-footer">
-            <p>© 2023 Professional Stopwatch</p>
-        </footer>
+        <button id="reset">New Game</button>
     </div>
-
     <script>
-        class Stopwatch {
-            constructor() {
-                this.isRunning = false;
-                this.startTime = 0;
-                this.elapsedTime = 0;
-                this.lapTimes = [];
-                this.timerInterval = null;
+        document.addEventListener('DOMContentLoaded', () => {
+            const board = document.getElementById('board');
+            const cells = document.querySelectorAll('.cell');
+            const status = document.getElementById('status');
+            const resetButton = document.getElementById('reset');
+            
+            let currentPlayer = 'X';
+            let gameState = ['', '', '', '', '', '', '', '', ''];
+            let gameActive = true;
+            
+            const winningConditions = [
+                [0, 1, 2], [3, 4, 5], [6, 7, 8], // rows
+                [0, 3, 6], [1, 4, 7], [2, 5, 8], // columns
+                [0, 4, 8], [2, 4, 6]             // diagonals
+            ];
+            
+            function handleCellClick(e) {
+                const clickedCell = e.target;
+                const clickedCellIndex = parseInt(clickedCell.getAttribute('data-index'));
                 
-                this.display = document.getElementById('display');
-                this.lapTimesElement = document.getElementById('lapTimes');
-                this.lapCountElement = document.getElementById('lapCount');
+                if (gameState[clickedCellIndex] !== '' || !gameActive) return;
                 
-                this.initializeButtons();
+                gameState[clickedCellIndex] = currentPlayer;
+                clickedCell.textContent = currentPlayer;
+                clickedCell.classList.add(currentPlayer.toLowerCase());
+                
+                checkResult();
             }
             
-            initializeButtons() {
-                document.getElementById('startBtn').addEventListener('click', () => this.start());
-                document.getElementById('pauseBtn').addEventListener('click', () => this.pause());
-                document.getElementById('resetBtn').addEventListener('click', () => this.reset());
-                document.getElementById('lapBtn').addEventListener('click', () => this.recordLap());
-            }
-            
-            start() {
-                if (!this.isRunning) {
-                    this.startTime = Date.now() - this.elapsedTime;
-                    this.timerInterval = setInterval(() => this.updateTime(), 10);
-                    this.isRunning = true;
+            function checkResult() {
+                let roundWon = false;
+                
+                for (let i = 0; i < winningConditions.length; i++) {
+                    const [a, b, c] = winningConditions[i];
+                    
+                    if (gameState[a] === '' || gameState[b] === '' || gameState[c] === '') continue;
+                    
+                    if (gameState[a] === gameState[b] && gameState[b] === gameState[c]) {
+                        roundWon = true;
+                        highlightWinningCells([a, b, c]);
+                        break;
+                    }
                 }
-            }
-            
-            pause() {
-                if (this.isRunning) {
-                    clearInterval(this.timerInterval);
-                    this.isRunning = false;
+                
+                if (roundWon) {
+                    status.textContent = `🎉 Player ${currentPlayer} wins! 🎉`;
+                    gameActive = false;
+                    createConfetti();
+                    return;
                 }
-            }
-            
-            reset() {
-                this.pause();
-                this.elapsedTime = 0;
-                this.lapTimes = [];
-                this.updateDisplay();
-                this.updateLapDisplay();
-            }
-            
-            recordLap() {
-                if (this.isRunning) {
-                    const currentLapTime = this.elapsedTime;
-                    const previousLapTime = this.lapTimes.length > 0 
-                        ? this.lapTimes[this.lapTimes.length - 1].totalTime 
-                        : 0;
-                    
-                    this.lapTimes.push({
-                        lapNumber: this.lapTimes.length + 1,
-                        totalTime: currentLapTime,
-                        splitTime: currentLapTime - previousLapTime
-                    });
-                    
-                    this.updateLapDisplay();
+                
+                if (!gameState.includes('')) {
+                    status.textContent = "😅 Game ended in a draw!";
+                    gameActive = false;
+                    return;
                 }
-            }
-            
-            updateTime() {
-                this.elapsedTime = Date.now() - this.startTime;
-                this.updateDisplay();
-            }
-            
-            formatTime(ms) {
-                const date = new Date(ms);
-                const hours = date.getUTCHours().toString().padStart(2, '0');
-                const minutes = date.getUTCMinutes().toString().padStart(2, '0');
-                const seconds = date.getUTCSeconds().toString().padStart(2, '0');
-                const milliseconds = Math.floor(date.getUTCMilliseconds() / 10).toString().padStart(2, '0');
                 
-                return `${hours}:${minutes}:${seconds}.${milliseconds}`;
+                currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+                status.textContent = `Player ${currentPlayer}'s turn`;
+                status.style.color = currentPlayer === 'X' ? '#ff4757' : '#2ed573';
             }
             
-            formatShortTime(ms) {
-                const date = new Date(ms);
-                const minutes = date.getUTCMinutes().toString().padStart(2, '0');
-                const seconds = date.getUTCSeconds().toString().padStart(2, '0');
-                const milliseconds = Math.floor(date.getUTCMilliseconds() / 10).toString().padStart(2, '0');
-                
-                return `${minutes}:${seconds}.${milliseconds}`;
-            }
-            
-            updateDisplay() {
-                this.display.textContent = this.formatTime(this.elapsedTime);
-            }
-            
-            updateLapDisplay() {
-                this.lapCountElement.textContent = this.lapTimes.length;
-                
-                // Clear existing laps
-                this.lapTimesElement.innerHTML = '';
-                
-                // Add new laps (in reverse order - newest first)
-                this.lapTimes.slice().reverse().forEach(lap => {
-                    const row = document.createElement('tr');
-                    
-                    const lapCell = document.createElement('td');
-                    lapCell.textContent = lap.lapNumber;
-                    
-                    const totalCell = document.createElement('td');
-                    totalCell.textContent = this.formatShortTime(lap.totalTime);
-                    
-                    const splitCell = document.createElement('td');
-                    splitCell.textContent = this.formatShortTime(lap.splitTime);
-                    
-                    row.appendChild(lapCell);
-                    row.appendChild(totalCell);
-                    row.appendChild(splitCell);
-                    
-                    this.lapTimesElement.appendChild(row);
+            function highlightWinningCells(cells) {
+                cells.forEach(index => {
+                    document.querySelector(`.cell[data-index="${index}"]`).classList.add('winning-cell');
                 });
             }
-        }
-
-        // Initialize the stopwatch when the page loads
-        document.addEventListener('DOMContentLoaded', () => {
-            new Stopwatch();
+            
+            function createConfetti() {
+                const colors = ['#ff4757', '#2ed573', '#6c5ce7', '#fdcb6e', '#00cec9', '#a29bfe'];
+                for (let i = 0; i < 100; i++) {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                    confetti.style.opacity = Math.random() * 0.5 + 0.5;
+                    document.body.appendChild(confetti);
+                    
+                    setTimeout(() => {
+                        confetti.remove();
+                    }, 5000);
+                }
+            }
+            
+            function resetGame() {
+                currentPlayer = 'X';
+                gameState = ['', '', '', '', '', '', '', '', ''];
+                gameActive = true;
+                status.textContent = `Player ${currentPlayer}'s turn`;
+                status.style.color = '#6c5ce7';
+                
+                cells.forEach(cell => {
+                    cell.textContent = '';
+                    cell.className = 'cell';
+                    cell.classList.remove('x', 'o', 'winning-cell');
+                });
+            }
+            
+            cells.forEach(cell => {
+                cell.addEventListener('click', handleCellClick);
+            });
+            
+            resetButton.addEventListener('click', resetGame);
         });
     </script>
 </body>
